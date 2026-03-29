@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Listing Results - Kala AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .result-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .image-preview-card {
+            top: 100px;
+            position: sticky;
+        }
+
+        .image-preview-card img {
+            width: 100%;
+            height: auto;
+            border-radius: var(--radius-md);
+            margin-bottom: 15px;
+        }
+
+        .output-section {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            border: 1px solid var(--border);
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .output-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .output-content {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 8px 12px;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .copy-btn:hover {
+            background: rgba(211, 84, 0, 0.1);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tag {
+            background: rgba(243, 156, 18, 0.15);
+            color: var(--primary);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .action-bar {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 900px) {
+            .result-layout {
+                grid-template-columns: 1fr;
+            }
+            .image-preview-card {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-palette text-primary"></i> Kala AI
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="upload.html" class="active">Generate</a></li>
+                <li><a href="reviews.html">Intelligence</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="auth.html">Login</a></li>
+                <li>
+                    <select id="theme-switch" class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.85rem; height: 32px; margin-top: -3px; border-color: var(--border);">
+                        <option value="orange">🟠 Orange</option>
+                        <option value="blue">🔵 Blue</option>
+                        <option value="green">🟢 Green</option>
+                        <option value="red">🔴 Red</option>
+                    </select>
+                </li>
+            </ul>
+            <button class="menu-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        
+        <div class="mb-4" style="display: flex; justify-content: space-between; align-items: flex-end;">
+            <div>
+                <h1>Your AI Generated Listing</h1>
+                <p class="text-muted"><i class="fas fa-check-circle text-green"></i> Powered by your product photo and customer reviews analysis.</p>
+            </div>
+            <a href="upload.html" class="btn btn-secondary"><i class="fas fa-plus"></i> New Listing</a>
+        </div>
+
+        <div class="result-layout">
+            <!-- Left: Sidebar / Image Preview -->
+            <div class="image-preview-card card">
+                <img src="pottery.png" alt="Product Preview" id="result-img">
+                <h4 style="margin-top: 15px">Suggested Price</h4>
+                <p style="font-size: 2rem; color: var(--primary); font-weight: bold;">$45 - $60</p>
+                <p class="text-muted" style="font-size: 0.9rem;">Based on marketplace analysis of similar handcrafted pottery and effort required (5 days).</p>
+                
+                <div style="margin-top: 20px; padding: 15px; background: rgba(211,84,0,0.05); border-radius: 8px;">
+                    <strong style="display: block; margin-bottom: 5px; color: var(--primary);">
+                        <i class="fas fa-star"></i> Review Insights Used
+                    </strong>
+                    <ul style="font-size: 0.85rem; color: var(--text-muted); padding-left: 20px;">
+                        <li>"Vibrant colors" mentioned 12 times</li>
+                        <li>"Perfect for gifting" mentioned 8 times</li>
+                        <li>"Authentic feel" mentioned 15 times</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right: Content Outputs -->
+            <div>
+                <!-- Title -->
+                <div class="output-section">
+                    <button class="copy-btn" data-target="out-title"><i class="far fa-copy"></i> Copy</button>
+                    <h3><i class="fas fa-heading"></i> Product Title</h3>
+                    <div id="out-title" class="output-content" style="font-size: 1.4rem; font-family: var(--font-heading); font-weight: bold;">
+                        Hand-Painted Azure Jaipur Pottery Vase - Authentic Floral Motif
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="output-section">
+                    <button class="copy-btn" data-target="out-desc"><i class="far fa-copy"></i> Copy</button>
+                    <h3><i class="fas fa-align-left"></i> E-commerce Description</h3>
+                    <div id="out-desc" class="output-content">
+                        Bring the majestic aura of Rajasthan into your living space with this magnificent hand-painted azure vase. Highly rated by customers for its <strong>vibrant, fade-resistant colors</strong> and <strong>authentic feel</strong>, this piece is entirely shaped and painted by hand without the use of a potter's wheel. <br><br>
+                        Perfect as a centerpiece or an unforgettable gift for art lovers, it blends centuries of tradition with modern durability. Note: Because each piece is handmade, slight variations in floral strokes make your vase beautifully unique.
+                    </div>
+                </div>
+
+                <!-- Cultural Story -->
+                <div class="output-section">
+                    <button class="copy-btn" data-target="out-story"><i class="far fa-copy"></i> Copy</button>
+                    <h3><i class="fas fa-book-open"></i> Cultural Story</h3>
+                    <div id="out-story" class="output-content" style="font-style: italic; border-left: 3px solid var(--primary); padding-left: 15px;">
+                        "The art of Blue Pottery came to Jaipur in the early 19th century, carrying influences from Turko-Persian origins. Unlike typical ceramics, it is made from a special dough of quartz stone powder, powdered glass, and Multani Mitti (Fuller's Earth). Every brushstroke on this vase represents hours of dedication by master artisans, preserving a craft that has adorned royal palaces for centuries."
+                    </div>
+                </div>
+
+                <!-- Marketing / Social -->
+                <div class="output-section">
+                    <button class="copy-btn" data-target="out-social"><i class="far fa-copy"></i> Copy</button>
+                    <h3><i class="fas fa-hashtag"></i> Instagram Captions</h3>
+                    <div id="out-social" class="output-content">
+                        <p><strong>Option 1 (Story-driven):</strong><br>
+                        Hold a piece of history in your hands. 🏺 The vivid blues of our new Jaipur pottery collection aren't just colors; they're stories of artisans keeping a 200-year-old tradition alive. Tap to add a touch of royal heritage to your home! ✨</p>
+                        
+                        <p style="margin-top: 15px;"><strong>Option 2 (Review-focused):</strong><br>
+                        Why do our customers call this the "perfect gift"? 🎁 Because real art speaks to the heart. Discover the authentic feel and vibrant strokes of our hand-painted azure vase. Link in bio!</p>
+                        
+                        <div class="tags">
+                            <span class="tag">#HandmadePottery</span>
+                            <span class="tag">#IndianCrafts</span>
+                            <span class="tag">#HomeDecor</span>
+                            <span class="tag">#ArtisanMade</span>
+                            <span class="tag">#SupportLocalArtists</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="action-bar" style="flex-wrap: wrap;">
+                    <button class="btn btn-primary" style="flex: 1; min-width: 250px; background: #27ae60; border: none; box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);" onclick="publishListing()">
+                        <i class="fas fa-store"></i> Publish to Marketplace
+                    </button>
+                    <button class="btn btn-secondary" style="flex: 1; min-width: 200px;" onclick="showToast('Downloading listing template as TXT...')">
+                        <i class="fas fa-download"></i> Download All
+                    </button>
+                    <a href="upload.html" class="btn btn-secondary" style="border-color: var(--border); color: var(--text-muted);">Discard & Try Again</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <!-- Footer content same as index.html -->
+        <div class="container pb-2">
+            <div class="text-center" style="color: var(--text-muted); font-size: 0.9rem;">
+                &copy; 2026 Kala AI. Empowering Artisans Globally.
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+    <script>
+        // Update Title dynamically if localstorage has data
+        document.addEventListener('DOMContentLoaded', () => {
+            const name = localStorage.getItem('recentGenName');
+            if(name) {
+                document.getElementById('out-title').innerText = `Hand-Crafted Premium ${name} - Authentic Design`;
+            }
+        });
+    </script>
+</body>
+</html>

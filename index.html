@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kala AI - Artisans' Marketplace Assistant</title>
+    <!-- Font Awesome for generic icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Home Specific Styles */
+        .hero {
+            padding: 60px 0 80px;
+            display: flex;
+            align-items: center;
+        }
+        .hero-text {
+            flex: 1;
+            padding-right: 40px;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            max-width: 500px;
+        }
+        .hero-image {
+            flex: 1;
+            position: relative;
+        }
+        .hero-image img {
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            z-index: 2;
+        }
+        .hero-bg-blob {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(211,84,0,0.1), rgba(243,156,18,0.2));
+            border-radius: var(--radius-lg);
+            z-index: 1;
+            transform: rotate(3deg);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background-color: var(--surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .feature-card {
+            text-align: center;
+        }
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(211, 84, 0, 0.1);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 20px;
+            transition: var(--transition);
+        }
+        .feature-card:hover .feature-icon {
+            background-color: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* Before/After Section */
+        .comparison {
+            padding: 80px 0;
+        }
+        .compare-box {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+        }
+        .compare-box.after {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(211, 84, 0, 0.1);
+            position: relative;
+        }
+        .badge {
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 0;
+            }
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-palette text-primary" style="color: var(--primary)"></i> Kala AI
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="upload.html">Generate</a></li>
+                <li><a href="reviews.html">Intelligence</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="auth.html">Login</a></li>
+                <li>
+                    <select id="theme-switch" class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.85rem; height: 32px; margin-top: -3px; border-color: var(--border);">
+                        <option value="orange">🟠 Orange</option>
+                        <option value="blue">🔵 Blue</option>
+                        <option value="green">🟢 Green</option>
+                        <option value="red">🔴 Red</option>
+                    </select>
+                </li>
+            </ul>
+            <a href="upload.html" class="btn btn-primary" style="display: none;" id="nav-cta">Get Started</a>
+            <button class="menu-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero container">
+            <div class="hero-text">
+                <h1 class="hero-title">Empower Your Craft with Intelligent Listings</h1>
+                <p class="hero-subtitle">Turn your beautiful handcrafted products into compelling digital stories. Upload a photo, and let AI generate rich descriptions that honor your culture and boost sales.</p>
+                <div style="display: flex; gap: 15px;">
+                    <a href="javascript:void(0)" onclick="checkCreatorGuard()" class="btn btn-primary">Start Generating <i class="fas fa-arrow-right"></i></a>
+                    <a href="reviews.html" class="btn btn-secondary">Learn How Reviews Help</a>
+                </div>
+            </div>
+                    <div class="hero-image" style="position: relative;">
+                <div class="hero-bg-blob"></div>
+                <!-- Local Pottery Image -->
+                <img src="pottery.png" alt="Indian Handicraft Pottery">
+                <div style="position: absolute; bottom: -20px; right: 20px; background: var(--surface); padding: 15px 25px; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); z-index: 3; display: flex; flex-direction: column; gap: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <h4 style="margin: 0; font-size: 1.1rem;">Jaipur Azure Vase</h4>
+                        <p style="margin: 0; color: var(--primary); font-weight: bold;">$45.00</p>
+                    </div>
+                    <div style="display: flex; gap: 10px; width: 100%;">
+                        <button class="btn btn-secondary" style="flex: 1; padding: 8px;" onclick="addToCart('Jaipur Azure Vase', '$45.00', 'pottery.png')"><i class="fas fa-cart-plus"></i></button>
+                        <button class="btn btn-primary" style="flex: 2; padding: 8px;" onclick="viewProduct('Jaipur Azure Vase', '$45.00', 'pottery.png', 'Jaipur Craft House', 'A magnificent piece depicting the traditional blue pottery art of Jaipur. Made with quartz stone powder, powdered glass, and brilliantly hued in cobalt blue, preserving a 14th-century craft.')"><i class="fas fa-eye"></i> View details</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features">
+            <div class="container">
+                <div class="text-center mb-4">
+                    <h2 class="mb-1">How Kala AI Elevates Your Art</h2>
+                    <p class="text-muted" style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">We don't just write descriptions. We weave the cultural fabric of your work into words that resonate with modern buyers.</p>
+                </div>
+                <div class="grid-3">
+                    <div class="card feature-card">
+                        <div class="feature-icon"><i class="fas fa-magic"></i></div>
+                        <h3>Instant Storytelling</h3>
+                        <p>Generate rich, culturally informed narratives from a simple photo and basic details.</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon"><i class="fas fa-star"></i></div>
+                        <h3>Review Intelligence</h3>
+                        <p>Our AI analyzes customer reviews to highlight what buyers love most about your craft.</p>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon"><i class="fas fa-tags"></i></div>
+                        <h3>Smart Pricing</h3>
+                        <p>Get pricing suggestions based on material, effort, and current market demand for artisan goods.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Before & After -->
+        <section class="comparison container">
+            <h2 class="text-center mb-4">The Kala AI Difference</h2>
+            <div class="grid-2">
+                <div class="compare-box">
+                    <h3 style="color: var(--text-muted)">Before AI</h3>
+                    <p><strong>Title:</strong> Blue Pottery Vase</p>
+                    <p><strong>Description:</strong> Nice handmade vase. Good for flowers. Made from clay.</p>
+                    <p><strong>Price:</strong> $20</p>
+                </div>
+                <div class="compare-box after">
+                    <div class="badge"><i class="fas fa-sparkles"></i> AI Enhanced</div>
+                    <h3>With Kala AI</h3>
+                    <p><strong>Title:</strong> Hand-Painted Azure Jaipur Pottery Vase - Floral Motif</p>
+                    <p><strong>Description:</strong> Bring the regal charm of Rajasthan into your home with this exquisite hand-painted vase. Crafted using traditional Jaipur blue pottery techniques passed down through generations...</p>
+                    <p><strong>Cultural Story:</strong> Turko-Persian origins meet Indian craftsmanship...</p>
+                    <p><strong>Suggested Price:</strong> $45 - $60</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col" style="flex: 2;">
+                    <a href="index.html" class="logo mb-2" style="font-size: 1.2rem;">
+                        <i class="fas fa-palette text-primary"></i> Kala AI
+                    </a>
+                    <p style="max-width: 300px;">Bridging the gap between traditional craftsmanship and the modern digital marketplace.</p>
+                </div>
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul style="list-style: none;">
+                        <li><a href="upload.html">Generate Listing</a></li>
+                        <li><a href="reviews.html">Customer Reviews</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h3>Connect</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Kala AI. Empowering Artisans Globally.
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
