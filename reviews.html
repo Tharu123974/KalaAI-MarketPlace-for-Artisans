@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Intelligence - Kala AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .review-header {
+            background: linear-gradient(135deg, rgba(211,84,0,0.05), rgba(243,156,18,0.1));
+            padding: 60px 0;
+            border-radius: var(--radius-lg);
+            margin-bottom: 50px;
+        }
+
+        .review-card {
+            background: var(--surface);
+            padding: 25px;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .stars {
+            color: #f1c40f;
+            margin-bottom: 10px;
+        }
+
+        .highlight-word {
+            background-color: rgba(243, 156, 18, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .ai-insight {
+            background: var(--surface);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .form-review {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-palette text-primary"></i> Kala AI
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="upload.html">Generate</a></li>
+                <li><a href="reviews.html" class="active">Intelligence</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="auth.html">Login</a></li>
+                <li>
+                    <select id="theme-switch" class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.85rem; height: 32px; margin-top: -3px; border-color: var(--border);">
+                        <option value="orange">🟠 Orange</option>
+                        <option value="blue">🔵 Blue</option>
+                        <option value="green">🟢 Green</option>
+                        <option value="red">🔴 Red</option>
+                    </select>
+                </li>
+            </ul>
+            <button class="menu-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="review-header text-center">
+            <h1 class="mb-2">How Reviews Shape Your Stories</h1>
+            <p class="text-muted" style="max-width: 700px; margin: 0 auto; font-size: 1.1rem;">
+                Our AI doesn't just guess what buyers want—it learns from them. By analyzing customer feedback, Kala AI weaves real buyer sentiments into your product descriptions, increasing trust and boosting sales.
+            </p>
+        </div>
+
+        <div class="grid-2">
+            <!-- Left Side: Existing Reviews & Insights -->
+            <div>
+                <h3 class="mb-3">Sample Customer Reviews</h3>
+                
+                <div class="review-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p>"Absolutely breathtaking work! The <span class="highlight-word">vibrant colors</span> haven't faded at all after months in the sun. It feels so <span class="highlight-word">authentic</span> and grounding to have this in my living room."</p>
+                    <p class="text-muted" style="font-size: 0.85rem; margin-top: 10px;">- Sarah J., verified buyer of Jaipur Vase</p>
+                </div>
+
+                <div class="review-card">
+                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
+                    <p>"I bought this as a gift for my mother. It arrived safely packaged and she loved it. It is <span class="highlight-word">perfect for gifting</span> but I wish it came with a little card explaining its history."</p>
+                    <p class="text-muted" style="font-size: 0.85rem; margin-top: 10px;">- Michael T., verified buyer of Jaipur Vase</p>
+                </div>
+
+                <div class="ai-insight">
+                    <h4><i class="fas fa-brain" style="color: var(--primary);"></i> Kala AI Insight Engine</h4>
+                    <p style="margin-top: 10px; font-size: 0.95rem; color: var(--text-muted);">
+                        <strong>What the AI learned:</strong> Buyers heavily value "vibrant colors", "authenticity", and its potential as a "perfect gift". The AI also identified a missed opportunity to include the product's history. <br><br>
+                        <strong>Output Change:</strong> The AI now automatically generates a "Cultural Story" card for this artist's future listings, and heavily emphasizes the fade-resistant colors in the E-commerce description.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Right Side: Input Form -->
+            <div>
+                <div class="form-review">
+                    <h3 class="mb-2">Feed the AI manually</h3>
+                    <p class="text-muted mb-4" style="font-size: 0.9rem;">
+                        Got reviews on another platform (like Etsy or Instagram)? Paste them here so our AI can learn your customers' language.
+                    </p>
+                    
+                    <form onsubmit="event.preventDefault(); alert('Review added to AI Memory Bank!'); this.reset();">
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Select Product</label>
+                            <select style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px;">
+                                <option>Blue Jaipur Pottery Vase</option>
+                                <option>Handloom Silk Saree</option>
+                                <option>Wooden Carved Elephant</option>
+                            </select>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Review Rating</label>
+                            <div id="review-stars-input" style="display: flex; gap: 10px; color: #f1c40f; font-size: 1.5rem; cursor: pointer;">
+                                <i class="fas fa-star" data-rating="1"></i>
+                                <i class="fas fa-star" data-rating="2"></i>
+                                <i class="fas fa-star" data-rating="3"></i>
+                                <i class="fas fa-star" data-rating="4"></i>
+                                <i class="fas fa-star" data-rating="5"></i>
+                            </div>
+                            <input type="hidden" id="review-rating-value" value="5">
+                        </div>
+
+                        <div style="margin-bottom: 25px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 500;">Customer Feedback</label>
+                            <textarea rows="5" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit;" placeholder="Paste customer comment here..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-upload"></i> Analyze & Save Review
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container pb-2 text-center" style="color: var(--text-muted); font-size: 0.9rem;">
+            &copy; 2026 Kala AI. Empowering Artisans Globally.
+        </div>
+    </footer>
+    <script src="app.js"></script>
+</body>
+</html>

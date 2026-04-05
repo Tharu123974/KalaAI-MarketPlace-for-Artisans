@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile - Kala AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .profile-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 60px 0;
+            border-radius: var(--radius-lg);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: white;
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .tabs-container {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .tabs-header {
+            display: flex;
+            background: rgba(0,0,0,0.02);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background: white;
+        }
+
+        .tab-content {
+            padding: 30px;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .history-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            border-bottom: 1px solid var(--border);
+            align-items: center;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .history-info {
+            flex: 1;
+        }
+
+        .history-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .history-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container d-flex">
+            <a href="index.html" class="logo">
+                <i class="fas fa-palette text-primary"></i> Kala AI
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="upload.html">Generate</a></li>
+                <li><a href="reviews.html">Intelligence</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="auth.html">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <h1 id="prof-name" style="color: white; margin-bottom: 5px;">Loading...</h1>
+            <p id="prof-email" style="opacity: 0.9;">loading@example.com</p>
+            <div id="prof-badge" style="display: inline-block; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; margin-top: 15px; font-size: 0.9rem; font-weight: 600;">Artisan</div>
+        </div>
+
+        <div class="tabs-container">
+            <div class="tabs-header">
+                <div class="tab-btn active" onclick="switchTab('orders')">Order History</div>
+                <div class="tab-btn" onclick="switchTab('reviews')">My Reviews</div>
+            </div>
+
+            <div id="orders-content" class="tab-content active">
+                <!-- Orders will be injected here -->
+                <p class="text-center text-muted">No orders found.</p>
+            </div>
+
+            <div id="reviews-content" class="tab-content">
+                <!-- Reviews will be injected here -->
+                <p class="text-center text-muted">No reviews posted yet.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const isLoggedIn = localStorage.getItem('kala-loggedin') === 'true';
+            if(!isLoggedIn) {
+                window.location.href = 'auth.html';
+                return;
+            }
+
+            const name = localStorage.getItem('kala-username') || 'Not Applicable';
+            const email = localStorage.getItem('kala-email') || 'Not Applicable';
+            const role = localStorage.getItem('kala-role') || 'buyer';
+
+            document.getElementById('prof-name').innerText = name;
+            document.getElementById('prof-email').innerText = email;
+            document.getElementById('prof-badge').innerText = role === 'seller' ? 'Artisan' : 'Customer';
+
+            renderProfileOrders();
+            renderProfileReviews();
+        });
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            if(tab === 'orders') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('orders-content').classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('reviews-content').classList.add('active');
+            }
+        }
+
+        function renderProfileOrders() {
+            const container = document.getElementById('orders-content');
+            const username = localStorage.getItem('kala-username');
+            const allPurchases = JSON.parse(localStorage.getItem('kala-purchases') || '[]');
+            const myOrders = allPurchases.filter(p => p.user === username);
+
+            if(myOrders.length > 0) {
+                container.innerHTML = '';
+                myOrders.forEach(order => {
+                    container.innerHTML += `
+                        <div class="history-item">
+                            <img src="${order.image}" class="history-img" alt="${order.title}">
+                            <div class="history-info">
+                                <div class="history-title">${order.title}</div>
+                                <div class="history-meta">Purchased on ${order.date} • ${order.price}</div>
+                            </div>
+                            <button class="btn btn-secondary" onclick="viewProduct(${order.productId})" style="padding: 5px 15px; font-size: 0.8rem;">View Product</button>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function renderProfileReviews() {
+            const container = document.getElementById('reviews-content');
+            const username = localStorage.getItem('kala-username');
+            const allReviews = JSON.parse(localStorage.getItem('kala-reviews') || '{}');
+            const products = JSON.parse(localStorage.getItem('kala-products') || '[]');
+            
+            let myReviews = [];
+            for (let prodId in allReviews) {
+                allReviews[prodId].forEach(rev => {
+                    if(rev.reviewer === username) {
+                        const p = products.find(prod => String(prod.id) === String(prodId));
+                        myReviews.push({ ...rev, productName: p ? p.title : 'Deleted Product', productId: prodId });
+                    }
+                });
+            }
+
+            if(myReviews.length > 0) {
+                container.innerHTML = '';
+                myReviews.forEach(rev => {
+                    let stars = '';
+                    for(let i=1; i<=5; i++) {
+                        stars += `<i class="${i <= rev.rating ? 'fas fa-star' : 'far fa-star'}" style="color: #f1c40f; font-size: 0.8rem;"></i>`;
+                    }
+                    
+                    container.innerHTML += `
+                        <div class="history-item">
+                            <div class="history-info">
+                                <div class="history-title">${rev.productName}</div>
+                                <div style="margin-bottom: 5px;">${stars}</div>
+                                <p style="font-size: 0.9rem; font-style: italic;">"${rev.text}"</p>
+                                <div class="history-meta">Posted on ${new Date(rev.date).toLocaleDateString()}</div>
+                            </div>
+                            <button class="btn btn-secondary" onclick="viewProduct(${rev.productId})" style="padding: 5px 15px; font-size: 0.8rem;">View</button>
+                        </div>
+                    `;
+                });
+            }
+        }
+    </script>
+</body>
+</html>

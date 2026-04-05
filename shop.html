@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace - Kala AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .shop-header {
+            background: linear-gradient(135deg, rgba(211,84,0,0.05), rgba(243,156,18,0.1));
+            padding: 60px 0;
+            border-radius: var(--radius-lg);
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .product-card {
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 5px;
+            font-family: var(--font-heading);
+        }
+
+        .product-artisan {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .product-bottom {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container d-flex">
+            <a href="index.html" class="logo">
+                <i class="fas fa-palette text-primary"></i> Kala AI
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html" class="active">Shop</a></li>
+                <li><a href="upload.html">Generate</a></li>
+                <li><a href="reviews.html">Intelligence</a></li>
+                <li><a href="feedback.html">Feedback</a></li>
+                <li><a href="auth.html">Login</a></li>
+                <li>
+                    <select id="theme-switch" class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.85rem; height: 32px; margin-top: -3px; border-color: var(--border);">
+                        <option value="orange">🟠 Orange</option>
+                        <option value="blue">🔵 Blue</option>
+                        <option value="green">🟢 Green</option>
+                        <option value="red">🔴 Red</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="shop-header">
+            <h1 class="mb-2">Artisan Marketplace</h1>
+            <p class="text-muted" style="max-width: 600px; margin: 0 auto; font-size: 1.1rem;">
+                Discover authentic, handcrafted items direct from local artisans. Every purchase supports cultural heritage and independent creators.
+            </p>
+        </div>
+
+        <div class="view-toggle">
+            <button id="card-view-btn" class="view-btn" title="Card View"><i class="fas fa-th-large"></i></button>
+            <button id="list-view-btn" class="view-btn" title="List View"><i class="fas fa-list"></i></button>
+        </div>
+
+        <div id="product-grid" class="grid-3 mb-4">
+            <!-- Products will be dynamically injected here by app.js -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container pb-2 text-center" style="color: var(--text-muted); font-size: 0.9rem;">
+            &copy; 2026 Kala AI. Empowering Artisans Globally.
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

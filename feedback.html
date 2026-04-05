@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anonymous Feedback - Kala AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .feedback-wrapper {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--surface);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container d-flex">
+            <a href="index.html" class="logo">
+                <i class="fas fa-palette text-primary"></i> Kala AI
+            </a>
+            <!-- Nav links will be injected by JS if needed or hardcoded -->
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="upload.html">Generate</a></li>
+                <li><a href="reviews.html">Intelligence</a></li>
+                <li><a href="feedback.html" class="active">Feedback</a></li>
+                <li><a href="auth.html">Login</a></li>
+                <li>
+                    <select id="theme-switch" class="btn btn-secondary" style="padding: 5px 10px; font-size: 0.85rem; height: 32px; margin-top: -3px; border-color: var(--border);">
+                        <option value="orange">🟠 Orange</option>
+                        <option value="blue">🔵 Blue</option>
+                        <option value="green">🟢 Green</option>
+                        <option value="red">🔴 Red</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container py-4" style="padding: 60px 0;">
+        <div class="text-center mb-4">
+            <h1 class="mb-2">Help Us Improve</h1>
+            <p class="text-muted">Send anonymous feedback to our developers. Your thoughts help us build a better platform for artisans everywhere.</p>
+        </div>
+
+        <div class="feedback-wrapper">
+            <form onsubmit="event.preventDefault(); alert('Thank you! Your anonymous feedback has been submitted to the developers.'); this.reset();">
+                
+                <label style="font-weight: 500; display: block; margin-bottom: 8px;">What type of feedback is this?</label>
+                <select class="form-control" required>
+                    <option value="" disabled selected>Select category...</option>
+                    <option value="bug">Bug / Issue</option>
+                    <option value="feature">Feature Request</option>
+                    <option value="ui">Design / UI Improvement</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label style="font-weight: 500; display: block; margin-bottom: 8px;">Your Message</label>
+                <textarea rows="6" class="form-control" required placeholder="Describe the issue, feature idea, or general thoughts..."></textarea>
+
+                <div style="background: rgba(243, 156, 18, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; color: var(--text-muted);">
+                    <i class="fas fa-lock" style="color: var(--primary);"></i> <strong>Privacy Note:</strong> This form does not collect your name, email, or IP address. It is 100% anonymous.
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-paper-plane"></i> Submit Feedback
+                </button>
+            </form>
+        </div>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
